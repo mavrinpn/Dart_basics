@@ -18,7 +18,12 @@ void main() {
 
   // Task 4
   print("\nTask 4");
-  print("Map from List = " + ListCounter().count(['one', 'one', 'two', 'three', 'one', 'two', 'three', 'cat', 'dog']).toString());
+  print("Count Words at List = " + ListHelper().countWords(['one', 'one', 'two', 'three', 'one', 'two', 'three', 'cat', 'dog']).toString());
+
+  // Task 5
+  print("\nTask 5");
+  print("List Numbers from List = " + ListHelper().listNumbers(['one', 'one', 'two', 'three', 'one', 'two', 'three', 'cat', 'dog']).toString());
+
 }
 
 // ============= TASK 1 =============
@@ -93,13 +98,32 @@ class StringNumberParser {
 }
 
 
-// ============= TASK 4 =============
-class ListCounter {
-  Map<String, int> count(List<String> _list) {
+// ============= TASK 4, 5 =============
+class ListHelper {
+  Map<String, int> countWords(List<String> _list) {
     Map<String, int> _map = {};
     for (String word in _list) {
       _map[word] = (_map[word] ?? 0) + 1;
     }
     return _map;
+  }
+
+  Set<int> listNumbers(List<String> _list) {
+    Set<int> _set = {};
+    for (String word in _list) {
+      switch(word) {
+        case 'zero': _set.add(0); break;
+        case 'one': _set.add(1); break;
+        case 'two': _set.add(2); break;
+        case 'three': _set.add(3); break;
+        case 'four': _set.add(4); break;
+        case 'five': _set.add(5); break;
+        case 'six': _set.add(6); break;
+        case 'seven': _set.add(7); break;
+        case 'eight': _set.add(8); break;
+        case 'nine': _set.add(9); break;
+      }
+    }
+    return _set;
   }
 }
