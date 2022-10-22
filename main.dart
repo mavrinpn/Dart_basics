@@ -15,6 +15,10 @@ void main() {
   // Task 3
   print("\nTask 3");
   print("Parsed Numbers = " + StringNumberParser().parse("-0 one 2 three 3.4 five 6.0 seven 8 -9").toString());
+
+  // Task 4
+  print("\nTask 4");
+  print("Map from List = " + ListCounter().count(['one', 'one', 'two', 'three', 'one', 'two', 'three', 'cat', 'dog']).toString());
 }
 
 // ============= TASK 1 =============
@@ -85,5 +89,17 @@ class StringNumberParser {
       }
     }
     return numbers;
+  }
+}
+
+
+// ============= TASK 4 =============
+class ListCounter {
+  Map<String, int> count(List<String> _list) {
+    Map<String, int> _map = {};
+    for (String word in _list) {
+      _map[word] = (_map[word] ?? 0) + 1;
+    }
+    return _map;
   }
 }
