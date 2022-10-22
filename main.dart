@@ -7,7 +7,8 @@ void main() {
   // Task 2
   print("Decimal int to Binary String = " + 145.toBIN());
   print("Pseudo Binary int to Decimal int = " + 10010001.toDEC().toString());
-  print("Binary String to Decimal int = " + "10010001".toDEC().toString());
+  print("Pseudo Wrong Binary int to Decimal int = " + 12010001.toDEC().toString());
+  print("Binary Wrong String to Decimal int = " + "1a010001".toDEC().toString());
 }
 
 
