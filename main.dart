@@ -1,3 +1,5 @@
+import 'dart:math';
+
 void main() {
   // Task 1
   print("Task 1");
@@ -24,6 +26,12 @@ void main() {
   print("\nTask 5");
   print("List Numbers from List = " + ListHelper().listNumbers(['one', 'one', 'two', 'three', 'one', 'two', 'three', 'cat', 'dog']).toString());
 
+  // Task 6
+  print("\nTask 6");
+  print("Distance to Point = " + Point(10, 20, 30).distanceTo(Point(1, 2, 3)).toString());
+  print("True Triangle Area = " + TriangleArea().calculate(Point(20, -10, 0), Point.origin(), Point.unitVector()).toString());
+  print("Wrong Triangle Area = " + TriangleArea().calculate(Point(-1, -1, -1), Point.origin(), Point.unitVector()).toString());
+
 }
 
 // ============= TASK 1 =============
@@ -36,13 +44,13 @@ class DelimetersCalculator {
     // One of nums non zero
     if (a < b) {
         // Swap
-        var tmp = a; a = b; b = tmp;
+        final tmp = a; a = b; b = tmp;
     }
 
     while (b != 0) {
         a %= b;
         // Swap
-        var tmp = a; a = b; b = tmp;
+        final tmp = a; a = b; b = tmp;
     }
 
     return a;
@@ -125,5 +133,45 @@ class ListHelper {
       }
     }
     return _set;
+  }
+}
+
+
+// ============= TASK 6 =============
+class Point {
+
+  final double x;
+  final double y;
+  final double z;
+
+  Point(this.x, this.y, this.z);
+
+  factory Point.origin() {
+    return Point(0, 0, 0);
+  }
+
+  factory Point.unitVector() {
+    return Point(1, 1, 1);
+  }
+
+  double distanceTo(Point _to) {
+    final distance = sqrt(pow(x - _to.x, 2) + pow(y - _to.y, 2) + pow(z - _to.z, 2));
+    return distance;
+  }
+}
+
+class TriangleArea {
+  double calculate(Point _A, Point _B, Point _C) {
+    final AB = _A.distanceTo(_B);
+    final BC = _B.distanceTo(_C);
+    final CA = _C.distanceTo(_A);
+    final p = _semiPerimeter(AB, BC, CA);
+    final areaByHeron = sqrt(p * (p - AB) * (p - BC) * (p - CA));
+    return areaByHeron;
+  }
+
+  double _semiPerimeter(double _AB, double _BC, double _CA) {
+    final p = (_AB + _BC + _CA) / 2;
+    return p;
   }
 }
