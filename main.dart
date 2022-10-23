@@ -32,6 +32,13 @@ void main() {
   print("True Triangle Area = " + TriangleArea().calculate(Point(20, -10, 0), Point.origin(), Point.unitVector()).toString());
   print("Wrong Triangle Area = " + TriangleArea().calculate(Point(-1, -1, -1), Point.origin(), Point.unitVector()).toString());
 
+  // Task 7
+  print("\nTask 7");
+  print("Sqrt = " + (-27).sqrt(3).toString());
+  // print("Exception Sqrt = " + (3).sqrt(0).toString());
+  // print("Exception Sqrt = " + (-25).sqrt(4).toString());
+
+  
 }
 
 // ============= TASK 1 =============
@@ -173,5 +180,38 @@ class TriangleArea {
   double _semiPerimeter(double _AB, double _BC, double _CA) {
     final p = (_AB + _BC + _CA) / 2;
     return p;
+  }
+}
+
+
+// ============= TASK 7 =============
+extension on num {
+  double sqrt(int n) {
+    if (n <= 0) {
+      throw ArgumentError('Root degree must be a positive number');
+    }
+
+    if (this < 0 && n % 2 == 0) {
+      throw ArgumentError('Root degree must be odd if the number is negative');
+    }
+
+    final eps = 0.001;
+    double A = this.toDouble();
+    double X = A / n;
+    double X_n1 = 1; // X^(n-1)
+    double X_n = 0;
+
+    while((X/X_n - 1).abs() >= eps) {
+      X_n = X;
+
+      X_n1 = 1;
+      for (int i = 1; i < n; i++){
+        X_n1 = X_n1 * X;
+      }
+
+      X = 1 / n * ((n - 1) * X + A / X_n1); // Newton method
+    }
+
+    return X;
   }
 }
