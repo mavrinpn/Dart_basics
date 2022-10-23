@@ -38,7 +38,23 @@ void main() {
   // print("Exception Sqrt = " + (3).sqrt(0).toString());
   // print("Exception Sqrt = " + (-25).sqrt(4).toString());
 
-  
+  // Task 8
+  print("\nTask 8");
+  // User wrong_user_0 = User('user_mail.ru');
+  User user_1 = User('user_1@mail.ru');
+  AdminUser user_2 = AdminUser('user_2@gmail.com');
+  GeneralUser user_3 = GeneralUser('user_3@yandex.ru');
+  print('Admin mail system = ' + user_2.getMailSystem());
+
+  UserManager manager = UserManager();
+  manager.addUser(user_1);
+  manager.addUser(user_2);
+  manager.addUser(user_3);
+  print('Email list = ' + manager.listUserEmails().toString());
+  manager.addUser(user_3);
+  manager.removeUser(user_3);
+  manager.removeUser(user_3);
+  print('Email list = ' + manager.listUserEmails().toString());
 }
 
 // ============= TASK 1 =============
@@ -213,5 +229,64 @@ extension on num {
     }
 
     return X;
+  }
+}
+
+
+// ============= TASK 8 =============
+class User {
+  String email = 'undefined';
+
+  User(String email) {
+    if (RegExp(r'^\S+@\S+\.\S+$').hasMatch(email)) { // dev purpose only
+      this.email = email;
+    } else {
+      throw ArgumentError('Email must be email');
+    }
+  }
+}
+
+mixin UserMailSystem on User {
+  String getMailSystem() {
+    return this.email.split('@')[1];
+  }
+}
+
+class AdminUser extends User with UserMailSystem {
+  AdminUser(super.email);
+}
+
+class GeneralUser extends User {
+  GeneralUser(super.email);
+}
+
+//class UserManager<T extends User> { // ???
+class UserManager {
+  List<User> users = [];
+  
+  addUser(User user) { // void ???
+    if (!users.contains(user)) {
+      users.add(user);
+      print('User ' + user.email + ' added');
+    } else {
+      print('User ' + user.email + ' already exists');
+    }
+  }
+
+  removeUser(User user) { // void ???
+    if (users.contains(user)) {
+      users.removeWhere((element) => element == user);
+      print('User ' + user.email + ' removed');
+    } else {
+      print('User ' + user.email + ' not exists');
+    }
+  }
+
+  List<String> listUserEmails() {
+    List<String> emails = [];
+    for (User user in users) {
+      emails.add(user is AdminUser ? user.getMailSystem() : user.email);
+    }
+    return emails;
   }
 }
