@@ -1,6 +1,7 @@
 import 'dart:math';
 
 void main() {
+  
   // Task 1
   print("Task 1");
   print("Calculated GCD = " + DelimetersCalculator().gcd(9, 6).toString());
